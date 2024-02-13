@@ -1,42 +1,42 @@
 // Importeer het npm pakket express uit de node_modules map
-import express from 'express'
+import express from "express";
 
 // Importeer de zelfgemaakte functie fetchJson uit de ./helpers map
-import fetchJson from './helpers/fetch-json.js'
+import fetchJson from "./helpers/fetch-json.js";
 
 // Haal data op uit de WHOIS API, ga pas verder als de data gedownload is
-const apiData = await fetchJson('https://fdnd.directus.app/items/person/65')
+const apiData = await fetchJson("https://fdnd.directus.app/items/person/26");
 
 // console.log(data); // uncomment om de opgehaalde data te checken
 
 // Maak een nieuwe express app aan
-const app = express()
+const app = express();
 
 // Stel ejs in als template engine
-app.set('view engine', 'ejs')
+app.set("view engine", "ejs");
 // Stel de map met ejs templates in
-app.set('views', './views')
+app.set("views", "./views");
 
 // Gebruik de map 'public' voor statische resources
-app.use(express.static('public'))
+app.use(express.static("public"));
 
 // Maak een GET route voor de index
-app.get('/', function (request, response) {
-   // Render index.ejs uit de views map en geef de opgehaalde data mee, in een variabele genaamd person
-   response.render('index', {person: apiData.data})
-})
+app.get("/", function (request, response) {
+  // Render index.ejs uit de views map en geef de opgehaalde data mee, in een variabele genaamd person
+  response.render("index", { person: apiData.data });
+});
 
 // Maak een POST route voor de index
-app.post('/', function (request, response) {
+app.post("/", function (request, response) {
   // Er is nog geen afhandeling van POST, redirect naar GET op /
-  response.redirect(303, '/')
-})
+  response.redirect(303, "/");
+});
 
 // Stel het poortnummer in waar express op moet gaan luisteren
-app.set('port', process.env.PORT || 8000)
+app.set("port", process.env.PORT || 8000);
 
 // Start express op, haal daarbij het zojuist ingestelde poortnummer op
-app.listen(app.get('port'), function () {
+app.listen(app.get("port"), function () {
   // Toon een bericht in de console en geef het poortnummer door
-  console.log(`Application started on http://localhost:${app.get('port')}`)
-})
+  console.log(`Application started on http://localhost:${app.get("port")}`);
+});
